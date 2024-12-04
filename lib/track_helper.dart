@@ -2,10 +2,30 @@
 import '../core/q_hsm_helper.dart';
 import '../core/threaded_code_executor.dart';
 
-class Sw1Helper {
+import 'dart:math';
+
+import 'helpers/velocity_helper.dart';
+import 'timer_objects/time_machine.dart';
+
+class TrackHelper {
+	//////////////////////////////////////////////////////////////////////////////
+	final int 				_pointer;
+	Point<double>?		_downPoint;
+	Point<double>?		_lastPoint;
+	bool              _pause          = false;
+
+	final TimeMachine _timeMachine    = TimeMachine();
+	late  String      _timer          = "";
+
+	final VelocityHelper    _velocityHelper = VelocityHelper  (8);
+
+	final int  TIMEOUT_FOR_LONG_PRESS = 1000;
+	final double THRESHOLD       = 25.0;  //  16.0 - Ok
+//////////////////////////////////////////////////////////////////////////////
+
 	final QHsmHelper	helper_ = QHsmHelper('GestureTrack');
 
-	Sw1Helper() {
+	TrackHelper(this._pointer) {
 		createHelper();
 	}
 
