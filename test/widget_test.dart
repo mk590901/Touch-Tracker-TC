@@ -5,6 +5,8 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'dart:async';
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -12,6 +14,7 @@ import 'package:track_tc/gesture/gesture_manager.dart';
 import 'package:track_tc/q_support/tracker.dart';
 
 import 'mock_widget.dart';
+import 'runner.dart';
 
 void main() {
 
@@ -80,4 +83,55 @@ void main() {
 
   });
 
+  void f1() {
+    print('f1');
+  }
+
+  void f2() {
+    print('f2');
+  }
+
+  void f3() {
+    print('f3');
+  }
+
+  void f4() {
+    print('f4');
+  }
+
+  void a1() {
+    print('a1');
+  }
+
+  void a2() {
+    print('a2');
+  }
+
+  void a3() {
+    print('a3');
+  }
+
+  void a4() {
+    print('a4');
+  }
+
+  test('queue', () async {
+    final Queue<Function>	_queue	= Queue<Function>();
+    _queue.add(f1);
+    scheduleMicrotask(() {
+      while (_queue.isNotEmpty) {
+        Function f = _queue.removeFirst();
+        f();
+      }
+    });
+
+  });
+
+
+  test('runner', () async {
+    Runner runner = Runner();
+    runner.run([f1,f2,f3]);
+    runner.run([a1,a2,f4]);
+    runner.run([a3,a4,f1,f2,f3]);
+  });
 }
