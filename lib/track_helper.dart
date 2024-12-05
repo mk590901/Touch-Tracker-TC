@@ -109,6 +109,7 @@ class TrackHelper {
 	}
 
 	void idleTouchup([Object? data]) {
+		_timeMachine.delete(_timer);
 	}
 
 	void idleExit([Object? data]) {
@@ -119,6 +120,7 @@ class TrackHelper {
 	}
 
 	void movingTouchup([Object? data]) {
+		print ('******* movingTouchup *******');
 		GestureManager.manager()?.eventMove(_pointer, ActionModifier.Final, data as Point<double>);
 	}
 
@@ -128,7 +130,7 @@ class TrackHelper {
 	void movingEntry([Object? data]) {
 		double average  = _velocityHelper.average();
 
-		print('onMovingEntry->$average');
+		print('onMovingEntry->$average -> $_pause');
 
 		if (average >= 0.01) {
 			print('onMovingEntry.MOVE');
@@ -199,7 +201,9 @@ class TrackHelper {
 	}
 
 	void run(final String eventName, [Object? data]) {
+		print ('- run ${helper_.getState()} : $eventName');
 		helper_.run(helper_.getState(), eventName, data);
+		print ('+ run ${helper_.getState()} : $eventName');
 	}
 
 	void createHelper() {

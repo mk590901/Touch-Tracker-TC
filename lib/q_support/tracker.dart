@@ -44,7 +44,7 @@ class Tracker {
     hsmHelper.init(); //  init state machine
   }
 
-  void done(String event, [Object? data]/*Point<double> point*/) { //  Data?
+  void done(String event, [Object? data]) { //  Data?
     print ('tracker done [$event]');
     //contextObject.done(event);
     hsmHelper.run(event, data);

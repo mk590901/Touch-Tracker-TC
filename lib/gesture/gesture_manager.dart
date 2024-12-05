@@ -137,7 +137,7 @@ class GestureManager {
 
     if (actionModifier == ActionModifier.Final) {
       _container.unregister(pointer);
-      print('Tracker [$pointer] was unregistered');
+      print('Tracker [$pointer] was unregistered. ActionModifier.Final');
     }
   }
 
