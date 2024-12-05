@@ -83,36 +83,36 @@ void main() {
 
   });
 
-  void f1() {
-    print('f1');
+  void f1([Object? data]) {
+    print('f1 $data');
   }
 
-  void f2() {
-    print('f2');
+  void f2([Object? data]) {
+    print('f2 $data');
   }
 
-  void f3() {
-    print('f3');
+  void f3([Object? data]) {
+    print('f3 $data');
   }
 
-  void f4() {
-    print('f4');
+  void f4([Object? data]) {
+    print('f4 $data');
   }
 
-  void a1() {
-    print('a1');
+  void a1([Object? data]) {
+    print('a1 $data');
   }
 
-  void a2() {
-    print('a2');
+  void a2([Object? data]) {
+    print('a2 $data');
   }
 
-  void a3() {
-    print('a3');
+  void a3([Object? data]) {
+    print('a3 $data');
   }
 
-  void a4() {
-    print('a4');
+  void a4([Object? data]) {
+    print('a4 $data');
   }
 
   test('queue', () async {
@@ -130,8 +130,8 @@ void main() {
 
   test('runner', () async {
     Runner runner = Runner();
-    runner.run([f1,f2,f3]);
-    runner.run([a1,a2,f4]);
-    runner.run([a3,a4,f1,f2,f3]);
+    runner.run([f1,f2,f3],'s1', 11);
+    runner.run([a1,a2,f4],'s2', 22);
+    runner.run([a3,a4,f1,f2,f3],'s3',33);
   });
 }
