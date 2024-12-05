@@ -25,7 +25,7 @@ class MainAppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('One Touch Tracker',
+        title: const Text('One Touch-TC Tracker',
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,

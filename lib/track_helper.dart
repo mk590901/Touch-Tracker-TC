@@ -4,7 +4,9 @@ import '../core/threaded_code_executor.dart';
 
 import 'dart:math';
 
+import 'gesture/gesture_manager.dart';
 import 'helpers/velocity_helper.dart';
+import 'q_interfaces/i_gesture_listener.dart';
 import 'q_support/tracker.dart';
 import 'timer_objects/time_machine.dart';
 
@@ -63,6 +65,28 @@ class TrackHelper {
 
 	}
 
+	void setLastPoint(Object? data) {
+		_lastPoint = data as Point<double>;
+	}
+
+	Point<double>? getLastPoint() {
+		return  _lastPoint;
+	}
+
+	void setPause(bool enable) {
+		_pause = enable;
+	}
+
+	bool isPause() {
+		return  _pause;
+	}
+
+	bool isFirstMove(double x, double y) {
+		double  dx    = x    - _downPoint!.x;
+		double  dy    = y    - _downPoint!.y;
+		double  shift = (dx*dx + dy*dy);
+		return  shift < THRESHOLD ? false : true;
+	}
 
 	void gesturetrackEntry([Object? data]) {
 	}
@@ -91,45 +115,81 @@ class TrackHelper {
 	}
 
 	void movingExit([Object? data]) {
+
 	}
 
 	void movingTouchup([Object? data]) {
+		GestureManager.manager()?.eventMove(_pointer, ActionModifier.Final, data as Point<double>);
 	}
 
 	void movingTouchmove([Object? data]) {
 	}
 
 	void movingEntry([Object? data]) {
+		double average  = _velocityHelper.average();
+
+		print('onMovingEntry->$average');
+
+		if (average >= 0.01) {
+			print('onMovingEntry.MOVE');
+			//@@@@@@@_gesture.onMove(_pointer, ActionModifier.Continue, data);
+			GestureManager.manager()?.eventMove(_pointer, ActionModifier.Continue, data as Point<double>);
+
+			setLastPoint(data);
+			setPause(false);
+		}
+		else { //print('PAUSE');
+			if (!isPause()) {
+				//  _gesture.onPause(_pointer, data);
+				GestureManager.manager()?.eventPause(_pointer, data as Point<double>);
+				setPause(true);
+			}
+		}
+
 	}
 
 	void checkmoveExit([Object? data]) {
 	}
 
 	void checkmoveTouchup([Object? data]) {
+		GestureManager.manager()?.eventTap(_pointer, _downPoint!);
 	}
 
 	void checkmoveTouchmove([Object? data]) {
 	}
 
 	void checkmoveEntry([Object? data]) {
+		if (data is! Point<double>) {
+			return;
+		}
+		Point<double> point = data;
+		if (isFirstMove(point.x, point.y)) {
+			run('MoveStart',data);
+		}
 	}
 
 	void checkmoveTimeout([Object? data]) {
+		GestureManager.manager()?.eventLongPress(_pointer, _downPoint!);
 	}
 
 	void checkmoveMovestart([Object? data]) {
+		_timeMachine.delete(_timer);
+		GestureManager.manager()?.eventMove(_pointer, ActionModifier.Start, data as Point<double>);
 	}
 
 	void insidetouchdownExit([Object? data]) {
 	}
 
 	void insidetouchdownTouchup([Object? data]) {
+		_timeMachine.delete(_timer);
+		GestureManager.manager()!.eventTap(_pointer, _downPoint!);
 	}
 
 	void insidetouchdownTouchmove([Object? data]) {
 	}
 
 	void insidetouchdownTimeout([Object? data]) {
+		GestureManager.manager()?.eventLongPress(_pointer, _downPoint!);
 	}
 
 	void init() {
