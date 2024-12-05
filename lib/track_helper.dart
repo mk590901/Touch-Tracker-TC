@@ -45,6 +45,25 @@ class TrackHelper {
 		_velocityHelper .reset();
 	}
 
+	void setDownPoint(Point<double> point) {
+		_downPoint  = point;
+		print('setDownPoint->[${point.x},${point.y}]');
+	}
+
+	void startNotifier (String timerIdent, String action) {
+		DateTime now = DateTime.now();
+		print('[$timerIdent] $action ${now.hour}:${now.minute}:${now.second}:${now.millisecond}');
+	}
+
+	void finalNotifier (String timerIdent, String action) {
+		DateTime now = DateTime.now();
+		print('[$timerIdent] $action ${now.hour}:${now.minute}:${now.second}:${now.millisecond}');
+		//done(ObjectEvent(TrackContextObject.Timeout, "TIMEOUT"));
+		run('Timeout', "TIMEOUT");
+
+	}
+
+
 	void gesturetrackEntry([Object? data]) {
 	}
 
@@ -56,9 +75,13 @@ class TrackHelper {
 	}
 
 	void idleTouchdown([Object? data]) {
+		print('idleTouchdown $data');
+		setDownPoint(data as Point<double>);
+		_timer = _timeMachine.invoke(TIMEOUT_FOR_LONG_PRESS, startNotifier, finalNotifier);
 	}
 
 	void insidetouchdownEntry([Object? data]) {
+		print('insidetouchdownEntry $data');
 	}
 
 	void idleTouchup([Object? data]) {
@@ -115,8 +138,8 @@ class TrackHelper {
 		print ('+ TrackHelper.init()->${helper_.getState()}');
 	}
 
-	void run(final String eventName) {
-		helper_.run(helper_.getState(), eventName);
+	void run(final String eventName, [Object? data]) {
+		helper_.run(helper_.getState(), eventName, data);
 	}
 
 	void createHelper() {

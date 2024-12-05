@@ -8,10 +8,10 @@ class ThreadedCodeExecutor {
 
   ThreadedCodeExecutor(this._helper, this._targetState, this._functions);
 
-  void execute() {
+  void execute([Object? data]) {
     //Future.microtask(() {
       for (Function func in _functions) {
-        func();
+        func(data);
       }
       _helper.setState(_targetState);
     //});

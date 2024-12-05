@@ -13,14 +13,14 @@ class QHsmHelper implements IQHsmStateMachineHelper {
     _container[createKey(state,event)] = executor;
   }
 
-  void run (String state, String event) {
+  void run (String state, String event, [Object? data]) {
     String key = createKey(state, event);
     if (!_container.containsKey(key)) {
       print('run.error: $state->$event');
       return;
     }
     ThreadedCodeExecutor? executor = _container[key];
-    executor?.execute();
+    executor?.execute(data);
   }
 
   @override
