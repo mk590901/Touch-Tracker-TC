@@ -128,7 +128,7 @@ void main() {
   });
 
 
-  test('runner', () async {
+  test('runner', () /*async*/ {
     Runner runner = Runner();
     runner.run([f1,f2,f3],'s1', 11);
     runner.run([a1,a2,f4],'s2', 22);
