@@ -5,6 +5,7 @@ import '../core/threaded_code_executor.dart';
 import 'dart:math';
 
 import 'helpers/velocity_helper.dart';
+import 'q_support/tracker.dart';
 import 'timer_objects/time_machine.dart';
 
 class TrackHelper {
@@ -29,6 +30,21 @@ class TrackHelper {
 		createHelper();
 	}
 
+	void moveInit(int time, double x, double y) {
+		_velocityHelper .init(time, x, y);
+	}
+
+	void moveDone(int time, double x, double y, Tracker tracker) {
+		double average = _velocityHelper .velocity(time, x, y);
+		if (average >= 0.01) {
+			tracker.setCurrentPoint(Point<double>(x.round().toDouble(),y.round().toDouble()));
+		}
+	}
+
+	void moveStop() {
+		_velocityHelper .reset();
+	}
+
 	void gesturetrackEntry([Object? data]) {
 	}
 
@@ -36,6 +52,7 @@ class TrackHelper {
 	}
 
 	void idleEntry([Object? data]) {
+		print('idleEntry');
 	}
 
 	void idleTouchdown([Object? data]) {
@@ -93,7 +110,9 @@ class TrackHelper {
 	}
 
 	void init() {
+		print ('- TrackHelper.init()->${helper_.getState()}');
 		helper_.run(helper_.getState(), 'init');
+		print ('+ TrackHelper.init()->${helper_.getState()}');
 	}
 
 	void run(final String eventName) {

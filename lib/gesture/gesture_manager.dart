@@ -68,10 +68,13 @@ class GestureManager {
     }
     tracker.init(timeStampInMs, position.x, position.y);
     //  Operation for tracker's state machine
-    tracker.done(ObjectEvent(
-        TrackContextObject.TouchDown,
-        Point<double>(
-            position.x.round().toDouble(), position.y.round().toDouble())));
+    // tracker.done(ObjectEvent(
+    //     TrackContextObject.TouchDown,
+    //     Point<double>(
+    //         position.x.round().toDouble(), position.y.round().toDouble())));
+
+    tracker.done('TouchDown',
+        Point<double>(position.x.round().toDouble(), position.y.round().toDouble()));
   }
 
   int numberTrackers() {
@@ -89,7 +92,7 @@ class GestureManager {
       return;
     }
     tracker.update(timeStampInMs, point.x, point.y);
-    tracker.done(ObjectEvent(TrackContextObject.TouchMove, point));
+    tracker.done('TouchMove', point);
   }
 
   void onUp(int timeStampInMs, int key, Point<double> point) {
@@ -98,7 +101,7 @@ class GestureManager {
       print("onUp: Failed to get tracker [$key]");
       return;
     }
-    tracker.done(ObjectEvent(TrackContextObject.TouchUp, point));
+    tracker.done('TouchUp', point);
   }
 
   void eventTap(int pointer, Point<double> point) {
