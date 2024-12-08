@@ -1,10 +1,12 @@
 import 'i_q_hsm_state_machine_helper.dart';
+import 'runner.dart';
 import 'threaded_code_executor.dart';
 import 'utils.dart';
 
 class QHsmHelper implements IQHsmStateMachineHelper {
 
   late String _state;
+  late Runner runner = Runner(this);
   final Map<String,ThreadedCodeExecutor> _container = {};
 
   QHsmHelper(this._state);
@@ -13,14 +15,63 @@ class QHsmHelper implements IQHsmStateMachineHelper {
     _container[createKey(state,event)] = executor;
   }
 
-  void run (String state, String event, [Object? data]) {
-    String key = createKey(state, event);
+  // void runAsync (String state, String event, [Object? data]) {
+  //   String key = createKey(state, event);
+  //   if (!_container.containsKey(key)) {
+  //     print('runAsync.error: $state->$event');
+  //     return;
+  //   }
+  //   ThreadedCodeExecutor? executor = _container[key];
+  //   executor?.executeAsync(data);
+  // }
+
+  // void runSync (String state, String event, [Object? data]) {
+  //   String key = createKey(state, event);
+  //   if (!_container.containsKey(key)) {
+  //     print('runSync.error: $state->$event');
+  //     return;
+  //   }
+  //   ThreadedCodeExecutor? executor = _container[key];
+  //   executor?.executeSync(data);
+  // }
+
+  // void run (String event, [Object? data]) {
+  //   String key = createKey(state, event);
+  //   if (!_container.containsKey(key)) {
+  //     print('runSync.error: $state->$event');
+  //     return;
+  //   }
+  //   ThreadedCodeExecutor? executor = _container[key];
+  //   executor?.executeSync(data);
+  // }
+
+
+  void post(String event, [Object? data]) {
+    runner.post(event, data);
+  }
+
+  // void post(String event, [Object? data]) {
+  //   String key = createKey(_state, event);
+  //   if (!_container.containsKey(key)) {
+  //     print('post.error: $_state->$event');
+  //     return;
+  //   }
+  //   print('post.Ok: $_state->$event');
+  //   ThreadedCodeExecutor? executor = _container[key];
+  //   // executor?.post(event, data);
+  //
+  // }
+
+  @override
+  ThreadedCodeExecutor? executor(String event) {
+    String key = createKey(_state, event);
     if (!_container.containsKey(key)) {
-      print('run.error: $state->$event');
-      return;
+      print('runSync.error: $_state->$event');
+      return null;
     }
     ThreadedCodeExecutor? executor = _container[key];
-    executor?.execute(data);
+    //executor?.trace(_state, event);
+    return executor;
   }
 
   @override
@@ -30,7 +81,7 @@ class QHsmHelper implements IQHsmStateMachineHelper {
 
   @override
   void setState(String state) {
-    print ('******* setState $_state->$state *******');
+    print ('******* QHsmHelper.setState $_state->$state *******');
     _state = state;
   }
 

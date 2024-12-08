@@ -14,7 +14,7 @@ import 'package:track_tc/gesture/gesture_manager.dart';
 import 'package:track_tc/q_support/tracker.dart';
 
 import 'mock_widget.dart';
-import 'runner.dart';
+import '../lib/core/runner.dart';
 
 void main() {
 
@@ -62,7 +62,7 @@ void main() {
 
   });
 
-  test('widget actions move', () async {
+  test('widget actions init, down, move, up', () async {
     MockWidget widget = MockWidget();
 
     //  Touch down -> register & touch down
@@ -73,6 +73,27 @@ void main() {
 
     widget.onMove(123455, const Point<double>(12,12));
     widget.onMove(123460, const Point<double>(32,32));
+
+    widget.onUp(123490, const Point<double>(60,60));
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    tracker = GestureManager.manager()?.tracker(1);
+    expect(tracker, isNull);
+
+  });
+
+  test('widget init down and up->tap', () async {
+    MockWidget widget = MockWidget();
+
+    //  Touch down -> register & touch down
+    widget.onDown(123450, const Point<double>(10,10));
+
+    Tracker? tracker = GestureManager.manager()?.tracker(1);
+    expect(tracker, isNotNull);
+
+   // widget.onMove(123455, const Point<double>(12,12));
+   // widget.onMove(123460, const Point<double>(32,32));
 
     widget.onUp(123490, const Point<double>(60,60));
 
@@ -129,7 +150,7 @@ void main() {
 
 
   test('runner', () /*async*/ {
-    Runner runner = Runner();
+    Runner runner = Runner(null);
     runner.run([f1,f2,f3],'s1', 11);
     runner.run([a1,a2,f4],'s2', 22);
     runner.run([a3,a4,f1,f2,f3],'s3',33);

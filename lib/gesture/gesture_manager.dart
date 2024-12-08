@@ -112,7 +112,6 @@ class GestureManager {
     map.forEach((k, listener) {
       listener.onTap(pointer, point);
     });
-
     _container.unregister(pointer);
     print('Tracker [$pointer] was unregistered');
   }
