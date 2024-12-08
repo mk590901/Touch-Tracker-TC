@@ -149,10 +149,11 @@ void main() {
   });
 
 
-  test('runner', () /*async*/ {
-    Runner runner = Runner(null);
-    runner.run([f1,f2,f3],'s1', 11);
-    runner.run([a1,a2,f4],'s2', 22);
-    runner.run([a3,a4,f1,f2,f3],'s3',33);
-  });
+  // test('runner', () {
+  //   Runner runner = Runner(null);
+  //   runner.run([f1,f2,f3],'s1', 11);
+  //   runner.run([a1,a2,f4],'s2', 22);
+  //   runner.run([a3,a4,f1,f2,f3],'s3',33);
+  // });
+
 }

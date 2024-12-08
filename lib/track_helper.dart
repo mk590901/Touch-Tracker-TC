@@ -88,40 +88,39 @@ class TrackHelper {
 		return  shift < THRESHOLD ? false : true;
 	}
 
-	void gesturetrackEntry([Object? data]) {
-	}
+	// void gesturetrackEntry([Object? data]) {
+	// }
 
-	void gesturetrackInit([Object? data]) {
-	}
+	// void gesturetrackInit([Object? data]) {
+	// }
 
-	void idleEntry([Object? data]) {
-	}
+	// void idleEntry([Object? data]) {
+	// }
 
 	void idleTouchdown([Object? data]) {
 		setDownPoint(data as Point<double>);
 		_timer = _timeMachine.invoke(TIMEOUT_FOR_LONG_PRESS, startNotifier, finalNotifier);
 	}
 
-	void insidetouchdownEntry([Object? data]) {
-	}
+	// void insidetouchdownEntry([Object? data]) {
+	// }
 
 	void idleTouchup([Object? data]) {
 		_timeMachine.delete(_timer);
 	}
 
-	void idleExit([Object? data]) {
-	}
+	// void idleExit([Object? data]) {
+	// }
 
-	void movingExit([Object? data]) {
-
-	}
+	// void movingExit([Object? data]) {
+	// }
 
 	void movingTouchup([Object? data]) {
 		GestureManager.manager()?.eventMove(_pointer, ActionModifier.Final, data as Point<double>);
 	}
 
-	void movingTouchmove([Object? data]) {
-	}
+	// void movingTouchmove([Object? data]) {
+	// }
 
 	void movingEntry([Object? data]) {
 		double average  = _velocityHelper.average();
@@ -145,16 +144,16 @@ class TrackHelper {
 
 	}
 
-	void checkmoveExit([Object? data]) {
-	}
+	// void checkmoveExit([Object? data]) {
+	// }
 
 	void checkmoveTouchup([Object? data]) {
 		_timeMachine.delete(_timer);
 		GestureManager.manager()?.eventTap(_pointer, _downPoint!);
 	}
 
-	void checkmoveTouchmove([Object? data]) {
-	}
+	// void checkmoveTouchmove([Object? data]) {
+	// }
 
 	void checkmoveEntry([Object? data]) {
 		if (data is! Point<double>) {
@@ -175,16 +174,16 @@ class TrackHelper {
 		GestureManager.manager()?.eventMove(_pointer, ActionModifier.Start, data as Point<double>);
 	}
 
-	void insidetouchdownExit([Object? data]) {
-	}
+	// void insidetouchdownExit([Object? data]) {
+	// }
 
 	void insidetouchdownTouchup([Object? data]) {
 		_timeMachine.delete(_timer);
 		GestureManager.manager()!.eventTap(_pointer, _downPoint!);
 	}
 
-	void insidetouchdownTouchmove([Object? data]) {
-	}
+	// void insidetouchdownTouchmove([Object? data]) {
+	// }
 
 	void insidetouchdownTimeout([Object? data]) {
 		GestureManager.manager()?.eventLongPress(_pointer, _downPoint!);
@@ -200,89 +199,89 @@ class TrackHelper {
 
 	void createHelper() {
 		helper_.insert('GestureTrack', 'init', ThreadedCodeExecutor(helper_, 'Idle', [
-			gesturetrackEntry,
-			gesturetrackInit,
-			idleEntry,
+			// gesturetrackEntry,
+			// gesturetrackInit,
+			// idleEntry,
 		]));
 		helper_.insert('Idle', 'TouchDown', ThreadedCodeExecutor(helper_, 'InsideTouchDown', [
 			idleTouchdown,
-			insidetouchdownEntry,
+			// insidetouchdownEntry,
 		]));
 		helper_.insert('Idle', 'TouchUp', ThreadedCodeExecutor(helper_, 'Idle', [
 			idleTouchup,
-			idleExit,
-			gesturetrackInit,
-			idleEntry,
+			// idleExit,
+			// gesturetrackInit,
+			// idleEntry,
 		]));
 		helper_.insert('Moving', 'TouchDown', ThreadedCodeExecutor(helper_, 'InsideTouchDown', [
 			idleTouchdown,
-			movingExit,
-			insidetouchdownEntry,
+			// movingExit,
+			// insidetouchdownEntry,
 		]));
 		helper_.insert('Moving', 'TouchUp', ThreadedCodeExecutor(helper_, 'Idle', [
 			movingTouchup,
-			movingExit,
-			idleExit,
-			gesturetrackInit,
-			idleEntry,
+			// movingExit,
+			// idleExit,
+			// gesturetrackInit,
+			// idleEntry,
 		]));
 		helper_.insert('Moving', 'TouchMove', ThreadedCodeExecutor(helper_, 'Moving', [
-			movingTouchmove,
-			movingExit,
+			// movingTouchmove,
+			// movingExit,
 			movingEntry,
 		]));
 		helper_.insert('CheckMove', 'TouchDown', ThreadedCodeExecutor(helper_, 'InsideTouchDown', [
 			idleTouchdown,
-			checkmoveExit,
-			insidetouchdownEntry,
+			// checkmoveExit,
+			// insidetouchdownEntry,
 		]));
 		helper_.insert('CheckMove', 'TouchUp', ThreadedCodeExecutor(helper_, 'Idle', [
 			checkmoveTouchup,
-			checkmoveExit,
-			idleExit,
-			gesturetrackInit,
-			idleEntry,
+			// checkmoveExit,
+			// idleExit,
+			// gesturetrackInit,
+			// idleEntry,
 		]));
 		helper_.insert('CheckMove', 'TouchMove', ThreadedCodeExecutor(helper_, 'CheckMove', [
-			checkmoveTouchmove,
-			checkmoveExit,
+			// checkmoveTouchmove,
+			// checkmoveExit,
 			checkmoveEntry,
 		]));
 		helper_.insert('CheckMove', 'Timeout', ThreadedCodeExecutor(helper_, 'Idle', [
 			checkmoveTimeout,
-			checkmoveExit,
-			idleExit,
-			gesturetrackInit,
-			idleEntry,
+			// checkmoveExit,
+			// idleExit,
+			// gesturetrackInit,
+			// idleEntry,
 		]));
 		helper_.insert('CheckMove', 'MoveStart', ThreadedCodeExecutor(helper_, 'Moving', [
 			checkmoveMovestart,
-			checkmoveExit,
+			// checkmoveExit,
 			movingEntry,
 		]));
 		helper_.insert('InsideTouchDown', 'TouchDown', ThreadedCodeExecutor(helper_, 'InsideTouchDown', [
 			idleTouchdown,
-			insidetouchdownExit,
-			insidetouchdownEntry,
+			// insidetouchdownExit,
+			// insidetouchdownEntry,
 		]));
 		helper_.insert('InsideTouchDown', 'TouchUp', ThreadedCodeExecutor(helper_, 'Idle', [
 			insidetouchdownTouchup,
-			insidetouchdownExit,
-			idleExit,
-			gesturetrackInit,
-			idleEntry,
+			// insidetouchdownExit,
+			// idleExit,
+			// gesturetrackInit,
+			// idleEntry,
 		]));
 		helper_.insert('InsideTouchDown', 'TouchMove', ThreadedCodeExecutor(helper_, 'CheckMove', [
-			insidetouchdownTouchmove,
-			insidetouchdownExit,
+			// insidetouchdownTouchmove,
+			// insidetouchdownExit,
 			checkmoveEntry,
 		]));
 		helper_.insert('InsideTouchDown', 'Timeout', ThreadedCodeExecutor(helper_, 'Idle', [
 			insidetouchdownTimeout,
-			insidetouchdownExit,
-			idleExit,
-			gesturetrackInit,
-			idleEntry,
+			// insidetouchdownExit,
+			// idleExit,
+			// gesturetrackInit,
+			// idleEntry,
 		]));
 	}
 }

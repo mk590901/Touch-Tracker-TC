@@ -81,7 +81,7 @@ class QHsmHelper implements IQHsmStateMachineHelper {
 
   @override
   void setState(String state) {
-    print ('******* QHsmHelper.setState $_state->$state *******');
+    //print ('******* QHsmHelper.setState $_state->$state *******');
     _state = state;
   }
 

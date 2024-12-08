@@ -3,20 +3,20 @@ import 'dart:collection';
 
 import 'i_q_hsm_state_machine_helper.dart';
 import 'threaded_code_executor.dart';
-import 'utils.dart';
+//import 'utils.dart';
 
-class FunWrapper {
-  final Object? _data;
-  final Function _function;
-  FunWrapper(this._function, this._data);
-
-  Object? data() {
-    return _data;
-  }
-  Function function() {
-    return _function;
-  }
-}
+// class FunWrapper {
+//   final Object? _data;
+//   final Function _function;
+//   FunWrapper(this._function, this._data);
+//
+//   Object? data() {
+//     return _data;
+//   }
+//   Function function() {
+//     return _function;
+//   }
+// }
 
 class EventWrapper {
   final Object? _data;
@@ -36,7 +36,7 @@ class EventWrapper {
 
 class Runner {
 
-  final Queue<FunWrapper>	_queue	= Queue<FunWrapper>();
+  //final Queue<FunWrapper>	_queue	= Queue<FunWrapper>();
   final Queue<EventWrapper>	_eventsQueue	= Queue<EventWrapper>();
   final IQHsmStateMachineHelper? _helper;
   late String targetState;
@@ -54,37 +54,38 @@ class Runner {
   }
 
   void post(String event, [Object? data]) {
-    print('post.addQueue [$event($data)]');
+    //print('post.addQueue [$event($data)]');
     _eventsQueue.add(EventWrapper(event, data));
     while (_eventsQueue.isNotEmpty) {
       EventWrapper eventWrapper = _eventsQueue.removeFirst();
-      print('post event [${eventWrapper.event()}, ${eventWrapper.data()}]');
+      //print('post event [${eventWrapper.event()}, ${eventWrapper.data()}]');
       ThreadedCodeExecutor? executor = _helper?.executor(eventWrapper.event());
       executor?.executeSync(data);
     }
   }
 
-  void run (List<Function> functions, String targetState, [Object? data]) {
+  // void run (List<Function> functions, String targetState, [Object? data]) {
+  //
+  //   print('- _queue.size->${_queue.length}');
+  //
+  //   for (Function fun in functions) {
+  //     _queue.add(FunWrapper(fun, data));
+  //   }
+  //   //_queue.add(FunWrapper(setStateMock,targetState));
+  //   _queue.add(FunWrapper(setState,targetState));
+  //
+  //   print('+ _queue.size->${_queue.length}');
+  //
+  //   scheduleMicrotask(() {
+  //     while (_queue.isNotEmpty) {
+  //       FunWrapper funWrapper = _queue.removeFirst();
+  //       print ('CALL ${funWrapper.function()}');
+  //       funWrapper.function()(funWrapper.data());
+  //      }
+  //   });
+  //
+  // }
 
-    print('- _queue.size->${_queue.length}');
-
-    for (Function fun in functions) {
-      _queue.add(FunWrapper(fun, data));
-    }
-    //_queue.add(FunWrapper(setStateMock,targetState));
-    _queue.add(FunWrapper(setState,targetState));
-
-    print('+ _queue.size->${_queue.length}');
-
-    scheduleMicrotask(() {
-      while (_queue.isNotEmpty) {
-        FunWrapper funWrapper = _queue.removeFirst();
-        print ('CALL ${funWrapper.function()}');
-        funWrapper.function()(funWrapper.data());
-       }
-    });
-
-  }
 }
 
 // class Runner {
