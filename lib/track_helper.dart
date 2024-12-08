@@ -126,11 +126,10 @@ class TrackHelper {
 	void movingEntry([Object? data]) {
 		double average  = _velocityHelper.average();
 
-		print('onMovingEntry->$average -> $_pause');
+		//print('onMovingEntry->$average -> $_pause');
 
 		if (average >= 0.01) {
-			print('onMovingEntry.MOVE');
-			//@@@@@@@_gesture.onMove(_pointer, ActionModifier.Continue, data);
+			//print('onMovingEntry.MOVE');
 			GestureManager.manager()?.eventMove(_pointer, ActionModifier.Continue, data as Point<double>);
 
 			setLastPoint(data);
