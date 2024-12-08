@@ -14,11 +14,9 @@ To check the fact that __threaded code__ is capable of, firstly, replacing the _
 
 ## Movie
 
+https://github.com/user-attachments/assets/800fda63-58cc-482b-b968-cc34ed6f4177
+
 ## Conclusion
 
-19,085,113 bytes
-19,020,424 bytes
-----------------
-    64,689 bytes
-    
+The presented application behaves exactly the same as the application https://github.com/mk590901/Touch-Tracker, although the new version is much simpler and more compact, with the same GUI is the same. The difference is 19,085,113 bytes - 19,020,424 bytes = __64,689__ bytes in favor of the new app.
 
