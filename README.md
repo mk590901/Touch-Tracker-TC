@@ -1,4 +1,4 @@
-# track_tc
+# Touch Tracker TC
 
 A new Flutter project.
 
