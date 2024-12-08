@@ -1,16 +1,7 @@
 # Touch Tracker TC
 
-A new Flutter project.
+__Touch Tracker__ is application uses the standard Flutter's 🙌 GestureDetector component to translate _down_, _up_ and _move_ events to __tap__, __longPress__, __move__ (start, continue and final) and __pause__ commands. The application is a clone to the application https://github.com/mk590901/Touch-Tracker with one significant change: the entire __runtime QHsm framework__ is replaced by the __TrackHelper__ class, which contains the __threaded code__ replaces the state machine.
 
-## Getting Started
+## Goal
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To check the fact that __threaded code__ is capable of, firstly, replacing the __QHsm framework__, and secondly, significantly simplifying the application.
