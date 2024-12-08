@@ -14,3 +14,11 @@ To check the fact that __threaded code__ is capable of, firstly, replacing the _
 
 ## Movie
 
+## Conclusion
+
+19,085,113 bytes
+19,020,424 bytes
+----------------
+    64,689 bytes
+    
+
