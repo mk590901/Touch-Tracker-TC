@@ -16,23 +16,11 @@ class ThreadedCodeExecutor {
     runner.post(event, data);
   }
 
-  // void execute([Object? data]) {
-  //   runner.run( _functions, _targetState, data);
-  // }
-
-  // void executeAsync([Object? data]) {
-  //   runner.run( _functions, _targetState, data);
-  // }
-
   void executeSync([Object? data]) {
-    //print ('- executeSync -');
     _helper.setState(_targetState);
      for (Function func in _functions) {
-       //print('executeSync $func');
       func(data);
     }
-    //_helper.setState(_targetState);
-    //print ('+ executeSync +');
   }
 
   // void trace(String state, String event) {
