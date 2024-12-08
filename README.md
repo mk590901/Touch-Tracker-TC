@@ -5,3 +5,12 @@ __Touch Tracker__ is application uses the standard Flutter's 🙌 GestureDetecto
 ## Goal
 
 To check the fact that __threaded code__ is capable of, firstly, replacing the __QHsm framework__, and secondly, significantly simplifying the application.
+
+## Important points to note
+
+* The __TrackHelper__ class (file track_helper.dart) is generated automatically by the editor's __planner__ and then adapted to the application: data is added to the class, and the transfer functions are filled with operations for interacting with the __GestureManager__. These are similar to the operations that were previously performed in the __TrackContextObject__ class.
+* The __Tracker__ class is changed. Calls to the __TrackContextObject__ object functions are replaced by calls to the __TrackHelper__ object functions.
+* Empty transfer functions in the __TrackHelper__ class are removed from the nodes of the __QHsmHelper__ class. This minimizes the threaded code.
+
+## Movie
+
