@@ -1,28 +1,10 @@
 
 import 'dart:math';
-import '../q_hsm_track/track_context_object.dart';
-import '../q_hsm_track/track_hsm_wrapper.dart';
-import '../q_hsm_track/track_mediator.dart';
-import '../q_hsm_track/track_qhsm_scheme.dart';
 import '../q_interfaces/i_gesture_listener.dart';
-import '../q_interfaces/i_logger.dart';
 import '../track_helper.dart';
-import 'interceptor.dart';
-import 'logger.dart';
-import 'object_event.dart';
 
 class Tracker {
-  // ILogger?             logger;
-  // ILogger?             contextLogger;
-  // Interceptor?         interceptor;
-  // late TrackContextObject  contextObject;
   late TrackHelper     hsmHelper;
-  // TrackMediator?       mediator;
-  // TrackQHsmScheme?     scheme;
-  // TrackHsmWrapper?     schemeWrapper;
-
-
-
   IGestureListener?    gesture;
   final int           _pointer;
   Point<double>?      _currentPoint;
@@ -30,16 +12,6 @@ class Tracker {
 
 
   Tracker(this._pointer) {
-    // logger        = Logger();
-    // contextLogger = Logger();
-    // interceptor   = Interceptor();
-    // contextObject = TrackContextObject(_pointer, contextLogger);
-    // mediator      = TrackMediator(contextObject, interceptor!, contextLogger!);
-    // scheme        = TrackQHsmScheme(mediator!);
-    // schemeWrapper = TrackHsmWrapper(scheme!, mediator!);
-    //
-    // contextObject.init();
-
     hsmHelper = TrackHelper(_pointer);
     hsmHelper.init(); //  init state machine
   }

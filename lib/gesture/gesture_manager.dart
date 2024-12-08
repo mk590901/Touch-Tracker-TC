@@ -1,9 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
-import '../q_hsm_track/track_context_object.dart';
 import '../q_interfaces/i_gesture_listener.dart';
-import '../q_support/object_event.dart';
 import '../q_support/tracker.dart';
 import 'gesture_listeners_container.dart';
 import 'trackers_container.dart';
