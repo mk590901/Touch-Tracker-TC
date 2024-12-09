@@ -10,8 +10,10 @@ To check the fact that __threaded code__ is capable of, firstly, replacing the _
 
 * The __TrackHelper__ class (file track_helper.dart) is generated automatically by the editor's __planner__ and then adapted to the application: data is added to the class, and the transfer functions are filled with operations for interacting with the __GestureManager__. These are similar to the operations that were previously performed in the __TrackContextObject__ class.
 * The __Tracker__ class is changed. Calls to the __TrackContextObject__ object functions are replaced by calls to the __TrackHelper__ object functions.
-* Empty transfer functions in the __TrackHelper__ class are removed from the nodes of the __QHsmHelper__ class. This minimizes the threaded code.
+* Empty transfer functions in the __TrackHelper__ class are removed from the nodes of the __QHsmHelper__ class as shown below. This minimizes the threaded code.
 
+ ![Screenshot from 2024-12-09 12-17-50](https://github.com/user-attachments/assets/fb20a68c-2b3a-4aa8-a657-91bc4e2c7145)
+ 
 ## Movie
 
 https://github.com/user-attachments/assets/800fda63-58cc-482b-b968-cc34ed6f4177
